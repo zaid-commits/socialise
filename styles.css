@@ -19,7 +19,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #0366d6;
+    color: #0d1117;
     margin-bottom: 30px;
 }
 
@@ -39,7 +39,7 @@ input {
 
 input:focus {
     outline: none;
-    border-color: #0366d6;
+    border-color: #0d1117;
 }
 
 .btn {
@@ -60,7 +60,7 @@ input:focus {
 }
 
 .btn.primary {
-    background-color: #0366d6;
+    background-color: #0d1117;
     color: white;
     margin-left: 10px;
 }
@@ -107,7 +107,7 @@ input:focus {
 }
 
 .theme-selector button.active {
-    background-color: #0366d6;
+    background-color: #0d1117;
     color: white;
 }
 
