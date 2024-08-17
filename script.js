@@ -17,9 +17,10 @@ new Vue({
             Go: '#00ADD8',
             TypeScript: '#2b7489',
             PHP: '#4F5D95',
-            CPP: '#f34b7d',
+            CPlusPlus: '#f34b7d',
             CSharp: '#178600',
             Swift: '#ffac45',
+            // Add other languages as needed
         },
         mobileMenuOpen: false,
         scrolled: false,
@@ -41,7 +42,8 @@ new Vue({
             const canvas = await html2canvas(element, {
                 backgroundColor: this.cardTheme === 'light' ? '#ffffff' :
                                  this.cardTheme === 'dark' ? '#24292e' : '#0d1117',
-                scale: 2
+                scale: 2, // Increase scale for higher resolution
+                useCORS: true // Ensure images from different origins are included
             });
             const dataURL = canvas.toDataURL('image/png');
             const link = document.createElement('a');
@@ -50,15 +52,13 @@ new Vue({
             link.click();
             this.sharableImageUrl = dataURL;
         },
+        
+
         copyToClipboard() {
             const urlInput = document.querySelector('.url-container input');
             urlInput.select();
             document.execCommand('copy');
-            this.$toasted.show('URL copied to clipboard!', {
-                position: 'top-center',
-                duration: 2000,
-                type: 'success',
-            });
+            alert('URL copied to clipboard!');
         },
         scrollToGenerator() {
             const generatorSection = document.getElementById('generator');
