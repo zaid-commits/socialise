@@ -247,8 +247,6 @@ select {
     font-size: 0.9rem;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center contents */
-    justify-content: center; /* Center contents */
 }
 
 .card-image {
