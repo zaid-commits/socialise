@@ -10,11 +10,13 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@300;400;700&family=Open+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="app">
-        <header>
+        <header class="animate__animated animate__fadeIn">
             <nav>
                 <div class="logo">
                     <img src="Images/impic.png" alt="Impicify Logo">
@@ -29,18 +31,19 @@
         </header>
 
         <main>
-            <section class="hero">
+            <section class="hero animate__animated animate__fadeInUp">
                 <h1>GitHub Repo Card Generator</h1>
                 <p>Create beautiful, customizable cards for your GitHub repositories</p>
+                <a href="#generator" class="cta-button">Get Started</a>
             </section>
 
-            <section class="generator">
+            <section id="generator" class="generator" data-aos="fade-up">
                 <div class="input-group">
                     <input v-model="repoUrl" placeholder="Enter GitHub repo URL">
                     <button @click="fetchRepoData" class="btn primary"><i class="fas fa-magic"></i> Generate</button>
                 </div>
 
-                <div class="customization-panel" v-if="repoData">
+                <div class="customization-panel" v-if="repoData" data-aos="fade-up">
                     <h3>Customize Your Card</h3>
                     <div class="options-grid">
                         <div class="option">
@@ -61,14 +64,6 @@
                             </select>
                         </div>
                         <div class="option">
-                            <label>Layout:</label>
-                            <select v-model="cardLayout">
-                                <option value="classic">Classic</option>
-                                <option value="compact">Compact</option>
-                                <option value="modern">Modern</option>
-                            </select>
-                        </div>
-                        <div class="option">
                             <label>Show Language:</label>
                             <input type="checkbox" v-model="showLanguage">
                         </div>
@@ -79,19 +74,26 @@
                     </div>
                 </div>
 
-                <div class="preview-section" v-if="repoData">
+                <div class="preview-section" v-if="repoData" data-aos="fade-up">
                     <h3>Preview</h3>
                     <div id="image-container">
                         <div class="repo-card" :class="[cardTheme, cardLayout, {gradient: useGradient}]" :style="{ fontFamily: cardFont }">
                             <div class="header">
-                                <i class="fas fa-book-open repo-icon"></i>
-                                <h2>{{ repoData.name }}</h2>
+                                <div class="header">
+                                    <div class="repo-icon">
+                                        <!-- Icon goes here -->
+                                        <i class="fas fa-book-open repo-icon"></i>
+                                    </div>
+                                    <!-- <h2 class="repo-name">Repository Name</h2> -->
+                                    <h2>{{ repoData.name }}</h2>
+                                </div>
+                                
                             </div>
                             <div class="owner-info">
                                 <img :src="repoData.owner.avatar_url" alt="Owner Avatar" class="owner-avatar">
                                 <span class="owner-name">{{ repoData.owner.login }}</span>
                             </div>
-                            <div class="description">{{ repoData.description }}</div>
+                            <!-- <div class="description">{{ repoData.description }}</div> -->
                             <div class="stats">
                                 <div class="stat">
                                     <i class="fas fa-star"></i>
@@ -130,7 +132,7 @@
                     <button @click="downloadImage" class="btn secondary"><i class="fas fa-download"></i> Download Image</button>
                 </div>
 
-                <div class="sharable-url" v-if="sharableImageUrl">
+                <div class="sharable-url" v-if="sharableImageUrl" data-aos="fade-up">
                     <h3>Shareable Image URL:</h3>
                     <div class="url-container">
                         <input type="text" :value="sharableImageUrl" readonly>
@@ -140,10 +142,17 @@
             </section>
         </main>
 
-        <footer>
-            <p>Made with <i class="fas fa-heart"></i> by zaid @impic</p>
+        <footer data-aos="fade-up">
+            <p>Made with <i class="fas fa-heart"></i> by <a href="https://zaid.impic.tech"> Zaid </a> @impic</p>
         </footer>
     </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
 </body>
 </html>

@@ -1,20 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Honk&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Luckiest+Guy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Rubik+Bubbles&display=swap');
 :root {
     --primary-color: #0366d6;
     --secondary-color: #28a745;
     --background-color: #f6f8fa;
     --text-color: #24292e;
     --card-width: 500px;
-    --card-height: 195px;
+    --card-height: 250px;
 }
 
 * {
+    font-optical-sizing: auto;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Inter";
+    font-weight: 500;
+    /* font-family: 'Poppins', sans-serif; */
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
@@ -28,7 +32,7 @@ body {
 
 header {
     background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
     padding: 1rem 0;
 }
 
@@ -246,12 +250,12 @@ select {
 }
 
 .repo-card.dark {
-    background-color: #24292e;
+    background-color: #0d1117;
     color: #fff;
 }
 
 .repo-card.github {
-    background-color: #0d1117;
+    background-color: #24292e;
     color: #c9d1d9;
     border: 1px solid #30363d;
 }
@@ -263,18 +267,20 @@ select {
 
 .header {
     display: flex;
-    align-items: center;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    text-align: center; /* Ensure text is centered */
     margin-bottom: 0.75rem;
 }
 
 .repo-icon {
-    font-size: 1.5rem;
-    margin-right: 0.5rem;
+    font-size: 2rem; /* Adjust size as needed */
+    margin-right: 0.75rem; /* Space between icon and name */
     color: var(--primary-color);
 }
 
-.header h2 {
-    font-size: 1.25rem;
+.repo-name {
+    font-size: 1.5rem; /* Adjust size as needed */
     font-weight: 600;
     color: inherit;
     margin: 0;
@@ -283,33 +289,36 @@ select {
     text-overflow: ellipsis;
 }
 
+
 .owner-info {
     display: flex;
     align-items: center;
     margin-bottom: 0.75rem;
+    
 }
 
 .owner-avatar {
-    width: 24px;
-    height: 24px;
+    width: 30px; /* Increased size */
+    height: 30px; /* Increased size */
     border-radius: 50%;
-    margin-right: 0.5rem;
+    margin-right: 0.75rem; /* Increased margin */
 }
 
 .owner-name {
     font-weight: 600;
     color: inherit;
+    font-size: 1rem; /* Increased size */
 }
 
 .description {
-    font-size: 0.875rem;
+    font-size: 1rem; /* Increased size */
     margin-bottom: 0.75rem;
     color: #586069;
     flex-grow: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3; /* Increased line clamp for more content */
     -webkit-box-orient: vertical;
 }
 
@@ -322,7 +331,7 @@ select {
 .stats {
     display: flex;
     justify-content: space-between;
-    font-size: 0.875rem;
+    font-size: 1rem; /* Increased size */
     margin-bottom: 0.75rem;
 }
 
@@ -334,13 +343,14 @@ select {
 .stat i {
     margin-right: 4px;
     color: #ffa500;
+    font-size: 1.2rem; /* Increased size */
 }
 
 .extra-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.875rem;
+    font-size: 1rem; /* Increased size */
     margin-bottom: 0.5rem;
 }
 
@@ -350,8 +360,8 @@ select {
 }
 
 .lang-dot {
-    width: 12px;
-    height: 12px;
+    width: 14px; /* Increased size */
+    height: 14px; /* Increased size */
     border-radius: 50%;
     display: inline-block;
     margin-right: 6px;
@@ -365,10 +375,11 @@ select {
 .license i {
     margin-right: 4px;
     color: #28a745;
+    font-size: 1.2rem; /* Increased size */
 }
 
 .last-updated {
-    font-size: 0.75rem;
+    font-size: 0.875rem; /* Increased size */
     color: #8b949e;
     margin-bottom: 0;
 }
@@ -377,11 +388,109 @@ select {
     margin-right: 4px;
 }
 
+/* Ensure the watermark does not overlap with other elements */
 .watermark {
     position: absolute;
-    bottom: 8px;
+    bottom: 12px; /* Adjusted spacing */
     right: 1.25rem;
     font-size: 0.75rem;
     opacity: 0.7;
     font-style: italic;
+}
+
+/* Add these styles to your existing CSS file */
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 0;
+    background-color: #0d1117;
+    color: #fff;
+    margin-bottom: 4rem;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #fff;
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.generator {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 3rem;
+    margin-bottom: 4rem;
+}
+
+.customization-panel {
+    background-color: #f6f8fa;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.preview-section {
+    background-color: #f6f8fa;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.sharable-url {
+    background-color: #f6f8fa;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    background-color: #fff;
+    margin-top: 4rem;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 3rem 0;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .generator {
+        padding: 2rem;
+    }
 }
