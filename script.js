@@ -38,12 +38,20 @@ new Vue({
             }
         },
         async downloadImage() {
+            await this.loadFonts();
+            await this.ensureImagesLoaded();
+
             const element = document.querySelector('.repo-card');
             const canvas = await html2canvas(element, {
                 backgroundColor: this.cardTheme === 'light' ? '#ffffff' :
                                  this.cardTheme === 'dark' ? '#24292e' : '#0d1117',
-                scale: 2, // Increase scale for higher resolution
-                useCORS: true // Ensure images from different origins are included
+                scale: 2,
+                useCORS: true,
+                logging: true,
+                onclone: (clonedDoc) => {
+                    const clonedElement = clonedDoc.querySelector('.repo-card');
+                    clonedElement.style.fontFamily = this.cardFont;
+                }
             });
             const dataURL = canvas.toDataURL('image/png');
             const link = document.createElement('a');
@@ -52,10 +60,26 @@ new Vue({
             link.click();
             this.sharableImageUrl = dataURL;
         },
-        
-
+        async loadFonts() {
+            const font = new FontFaceObserver(this.cardFont);
+            try {
+                await font.load();
+            } catch (e) {
+                console.error('Font loading failed:', e);
+            }
+        },
+        async ensureImagesLoaded() {
+            const images = document.querySelectorAll('.repo-card img');
+            const imagePromises = Array.from(images).map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = img.onerror = resolve;
+                });
+            });
+            await Promise.all(imagePromises);
+        },
         copyToClipboard() {
-            const urlInput = document.querySelector('.url-container input');
+            const urlInput = document.querySelector('input[readonly]');
             urlInput.select();
             document.execCommand('copy');
             alert('URL copied to clipboard!');
@@ -93,7 +117,6 @@ new Vue({
                 start: 'top center',
             },
         });
-
         gsap.from('.hero p', {
             opacity: 0,
             y: 50,
@@ -104,7 +127,6 @@ new Vue({
                 start: 'top center',
             },
         });
-
         gsap.from('.hero button', {
             opacity: 0,
             y: 50,

@@ -3,63 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Socialise | Impic Tool</title>
-    <link rel="shortcut icon" href="path/to/favicon.ico" type="image/x-icon">
+    <title>Impicify - GitHub Repo Card Generator</title>
+    <link rel="shortcut icon" href="Images/impic.png" type="image/x-icon">
+    <!-- scripts -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fontfaceobserver/2.1.0/fontfaceobserver.standalone.js"></script>
+    <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#000000',
-                        secondary: '#ffffff',
-                    },
-                },
-            },
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        .repo-card {
-    width: 400px; /* Set fixed width */
-    height: 200px; /* Set fixed height */
-    position: relative; /* Ensure elements are positioned correctly */
-}
-
-
-
-
-
         .bg-gradient {
             background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
         }
-
-        .text-shadow {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
         .card-shadow {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900 font-sans">
-    
+<body class="bg-gray-50 text-gray-900 font-sans">
     <div id="app" class="min-h-screen flex flex-col">
-        
-        <header class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300" :class="{'py-2': scrolled, 'py-4': !scrolled}">
+        <header class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300" :class="{'py-2': scrolled, 'py-4': !scrolled}">
             <nav class="container mx-auto px-4 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
-                    <img src="Images/impic.png" alt="Logo" class="w-8 h-8">
                     <span class="text-xl font-bold text-primary">Impicify!</span>
                 </div>
                 <ul class="hidden md:flex space-x-6">
@@ -81,32 +51,31 @@
         </header>
 
         <main class="flex-grow">
-
             <section id="generator" class="py-16 bg-white">
                 <div class="container mx-auto px-4">
-                    <h2 class="text-3xl font-bold mb-8 text-center">Generate Your Repo Card</h2>
-                    <div class="max-w-2xl mx-auto">
+                    <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Generate Your Repo Card</h2>
+                    <div class="max-w-3xl mx-auto">
                         <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-8">
-                            <input v-model="repoUrl" placeholder="Enter GitHub repo URL" class="flex-grow py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                            <button @click="fetchRepoData" class="bg-primary text-white font-bold py-2 px-6 rounded-md hover:bg-opacity-90 transition-all transform hover:scale-105">
+                            <input v-model="repoUrl" placeholder="Enter GitHub repo URL" class="flex-grow py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+                            <button @click="fetchRepoData" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 text-lg">
                                 <i class="fas fa-magic mr-2"></i> Generate
                             </button>
                         </div>
 
-                        <div v-if="repoData" class="bg-gray-100 rounded-lg p-6 mb-8 card-shadow">
-                            <h3 class="text-2xl font-bold mb-4">Customize Your Card</h3>
+                        <div v-if="repoData" class="bg-white rounded-lg p-8 mb-8 card-shadow">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-800">Customize Your Card</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block mb-2 font-semibold">Theme:</label>
                                     <div class="flex space-x-2">
-                                        <button @click="cardTheme = 'light'" :class="{ 'bg-primary text-white': cardTheme === 'light', 'bg-gray-200': cardTheme !== 'light' }" class="px-4 py-2 rounded-md transition-colors">Light</button>
-                                        <button @click="cardTheme = 'dark'" :class="{ 'bg-primary text-white': cardTheme === 'dark', 'bg-gray-200': cardTheme !== 'dark' }" class="px-4 py-2 rounded-md transition-colors">Dark</button>
-                                        <button @click="cardTheme = 'github'" :class="{ 'bg-primary text-white': cardTheme === 'github', 'bg-gray-200': cardTheme !== 'github' }" class="px-4 py-2 rounded-md transition-colors">GitHub</button>
+                                        <button @click="cardTheme = 'light'" :class="{ 'bg-blue-600 text-white': cardTheme === 'light', 'bg-gray-200': cardTheme !== 'light' }" class="px-4 py-2 rounded-md transition-colors">Light</button>
+                                        <button @click="cardTheme = 'dark'" :class="{ 'bg-blue-600 text-white': cardTheme === 'dark', 'bg-gray-200': cardTheme !== 'dark' }" class="px-4 py-2 rounded-md transition-colors">Dark</button>
+                                        <button @click="cardTheme = 'github'" :class="{ 'bg-blue-600 text-white': cardTheme === 'github', 'bg-gray-200': cardTheme !== 'github' }" class="px-4 py-2 rounded-md transition-colors">GitHub</button>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block mb-2 font-semibold">Font:</label>
-                                    <select v-model="cardFont" class="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                                    <select v-model="cardFont" class="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         <option value="Poppins">Poppins</option>
                                         <option value="Roboto">Roboto</option>
                                         <option value="Open Sans">Open Sans</option>
@@ -114,23 +83,28 @@
                                 </div>
                                 <div>
                                     <label class="block mb-2 font-semibold">Show Language:</label>
-                                    <input type="checkbox" v-model="showLanguage" class="form-checkbox h-5 w-5 text-primary">
+                                    <input type="checkbox" v-model="showLanguage" class="form-checkbox h-5 w-5 text-blue-600">
                                 </div>
                                 <div>
                                     <label class="block mb-2 font-semibold">Use Gradient:</label>
-                                    <input type="checkbox" v-model="useGradient" class="form-checkbox h-5 w-5 text-primary">
+                                    <input type="checkbox" v-model="useGradient" class="form-checkbox h-5 w-5 text-blue-600">
                                 </div>
                             </div>
                         </div>
 
-                        <div v-if="repoData" class="bg-gray-100 rounded-lg p-6 mb-8 card-shadow">
-                            <h3 class="text-2xl font-bold mb-4">Preview</h3>
+                        <div v-if="repoData" class="bg-white rounded-lg p-8 mb-8 card-shadow">
+                            <h3 class="text-2xl font-bold mb-6 text-gray-800">Preview</h3>
                             <div id="image-container" class="flex justify-center mb-6">
-                                <div class="repo-card w-[500px] h-[250px] rounded-lg overflow-hidden shadow-lg relative p-5 flex flex-col" :class="[cardTheme, cardLayout, {'bg-gradient-to-br from-gray-200 to-gray-400': useGradient}]" :style="{ fontFamily: cardFont }">
-                                    <!-- <img src="image-url.jpg" alt="Image Description" class="absolute inset-0 w-full h-full object-cover z-0"> -->
+                                <div class="repo-card w-[500px] h-[250px] rounded-lg overflow shadow-lg relative p-5 flex flex-col"
+                                     :style="{
+                                         fontFamily: cardFont,
+                                         backgroundColor: cardTheme === 'light' ? '#ffffff' : cardTheme === 'dark' ? '#24292e' : '#0d1117',
+                                         background: useGradient ? 'linear-gradient(135deg, #f5f5f5, #e0e0e0)' : 'none',
+                                         color: cardTheme === 'light' ? '#24292e' : '#ffffff'
+                                     }">
                                     <div class="relative z-10 flex items-center mb-4">
-                                        <i class="fas fa-book-open text-3xl mt-0 mr-3 text-primary"></i>
-                                        <h2 class="text-2xl font-bold truncate mt-0 ">{{ repoData.name }}</h2>
+                                        <i class="fas fa-book-open text-3xl mt-0 mr-3 text-blue-500"></i>
+                                        <h2 class="text-2xl font-bold truncate mt-0">{{ repoData.name }}</h2>
                                     </div>
                                     <div class="flex items-center mb-3">
                                         <img :src="repoData.owner.avatar_url" alt="Owner Avatar" class="w-8 h-8 rounded-full mr-3">
@@ -171,16 +145,16 @@
                                     <div class="absolute bottom-2 right-3 text-xs italic opacity-70">-Impicify</div>
                                 </div>
                             </div>
-                            <button @click="downloadImage" class="w-full bg-primary text-white font-bold py-3 px-6 rounded-md hover:bg-opacity-90 transition-all transform hover:scale-105">
+                            <button @click="downloadImage" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 text-lg">
                                 <i class="fas fa-download mr-2"></i> Download Image
                             </button>
                         </div>
 
-                        <div v-if="sharableImageUrl" class="bg-gray-100 rounded-lg p-6 card-shadow">
-                            <h3 class="text-2xl font-bold mb-4">Shareable Image URL:</h3>
+                        <div v-if="sharableImageUrl" class="bg-white rounded-lg p-8 card-shadow">
+                            <h3 class="text-2xl font-bold mb-4 text-gray-800">Shareable Image URL:</h3>
                             <div class="flex space-x-4">
-                                <input type="text" :value="sharableImageUrl" readonly class="flex-grow py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-                                <button @click="copyToClipboard" class="bg-primary text-white font-bold py-2 px-6 rounded-md hover:bg-opacity-90 transition-all transform hover:scale-105">
+                                <input type="text" :value="sharableImageUrl" readonly class="flex-grow py-3 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg">
+                                <button @click="copyToClipboard" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-all transform hover:scale-105 text-lg">
                                     <i class="fas fa-copy mr-2"></i> Copy
                                 </button>
                             </div>
@@ -190,9 +164,9 @@
             </section>
         </main>
 
-        <footer class="bg-primary text-white py-8">
+        <footer class="bg-gray-800 text-white py-8">
             <div class="container mx-auto px-4 text-center">
-                <p>Made with <i class="fas fa-heart text-red-500"></i> <a href="https://zaid.impic.tech">By Zaid</a> </p>
+                <p>Made with <i class="fas fa-heart text-red-500"></i> by <a href="https://zaid.impic.tech" class="underline hover:text-blue-300">Zaid</a></p>
             </div>
         </footer>
     </div>
