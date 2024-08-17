@@ -247,7 +247,29 @@ select {
     font-size: 0.9rem;
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center contents */
+    justify-content: center; /* Center contents */
 }
+
+.card-image {
+    width: 100%; /* Full width of the card */
+    height: 100%; /* Full height of the card */
+    object-fit: cover; /* Cover the entire card while maintaining aspect ratio */
+    position: absolute; /* Position image absolutely */
+    top: 0;
+    left: 0;
+    z-index: -1; /* Place the image behind other content */
+}
+
+/* Ensure content is visible above the image */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    position: relative; /* Needed to stack content above the image */
+}
+
 
 .repo-card.dark {
     background-color: #0d1117;
@@ -265,13 +287,6 @@ select {
     color: #fff;
 }
 
-.header {
-    display: flex;
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Center items horizontally */
-    text-align: center; /* Ensure text is centered */
-    margin-bottom: 0.75rem;
-}
 
 .repo-icon {
     font-size: 2rem; /* Adjust size as needed */
