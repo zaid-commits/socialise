@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from './ui/card'
 import { Config } from '../App'
-import { Star, GitFork, AlertCircle, GitPullRequest, Code } from 'lucide-react'
 
 interface PreviewProps {
   config: Config
